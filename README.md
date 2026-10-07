@@ -10,6 +10,12 @@ Link do notebook(requer acesso ao workspace do Databricks Free Edition): [https:
 
 ---
 
+## Contexto
+
+A NYC Taxi & Limousine Commission (TLC) é a agência responsável por regular e licenciar os táxis da cidade de Nova York. Os dados de corridas são públicos e contêm informações como horário de embarque/desembarque, localização, distância, número de passageiros e valor cobrado. Foram utilizados dados de janeiro a maio de 2023, cobrindo 4 tipos de veículo: Yellow Taxi, Green Taxi, FHV (For-Hire Vehicle) e FHVHV (High Volume FHV — Uber, Lyft).
+
+---
+
 ## Arquitetura
 
 A solução segue o padrão de arquitetura medalhão, organizando os dados em camadas progressivas de qualidade:
