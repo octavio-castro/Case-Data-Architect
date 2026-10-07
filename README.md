@@ -47,9 +47,9 @@ A solução segue o padrão de arquitetura medalhão, organizando os dados em ca
 - `01_avg_total_by_month.py` — Analise 1: media de total_amount por mes
 - `02_avg_passengers_by_hour.py` — Analise 2: media de passenger_count por hora
 
-**README.md/**
+**README.md**
 
-**requirements.txt/**
+**requirements.txt**
 
 
 ---
@@ -125,7 +125,7 @@ Pergunta: "Qual a média de valor total (total_amount) recebido em um mês consi
 
 **Média geral do período:** $28.32 por corrida.
 
-**Interpretação:** A média por corrida variou de $27,37 (fevereiro) a $29,45 (maio), com tendência de aumento ao longo dos meses. A média geral do período foi de $28,32 por corrida.
+**Interpretação:** A média por corrida variou de $27,37 (fevereiro) a $29,45 (maio), com tendência de aumento ao longo dos meses (+7.2% no período). A média geral do período foi de $28,32 por corrida. Isso pode refletir reajuste de tarifa pela TLC e/ou mudança sazonal (inverno → primavera).
 
 ### Análise 2: Média de passenger_count por hora (Maio — Todos os táxis)
 
