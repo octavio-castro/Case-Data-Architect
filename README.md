@@ -6,6 +6,7 @@ Solução de engenharia de dados para ingestão, transformação e análise de d
 ## Ambiente de Desenvolvimento
 
 A solução foi desenvolvida no Databricks Free Edition. O código fonte está disponível nos arquivos `.py` deste repositório, organizado nas pastas `src/` e `analysis/`.
+Link do notebook: [https://dbc-315030ce-9136.cloud.databricks.com/editor/notebooks/2779698180864778?o=7474659975325096]
 
 ---
 
