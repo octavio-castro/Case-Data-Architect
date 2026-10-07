@@ -157,7 +157,7 @@ Nota: "Todos os táxis" na prática significa yellow + green, pois são os únic
 | Decisão | Justificativa |
 |---|---|
 | Arquitetura medalhão (Bronze/Silver/Gold) | Separação de responsabilidades: raw → limpo → consumo |
-| Apenas yellow e green na Silver/Gold | FHV e FHVHV não têm as colunas necessárias para as análises |
+| Apenas taxi yellow e green na Silver/Gold | FHV e FHVHV não têm as colunas necessárias para as análises |
 | Particionamento por mês na Gold | Acelera consultas que filtram por mês (partition pruning) |
 | Colunas calculadas na Gold (month, hour) | Evita recálculo a cada consulta — performance |
 | Data quality assertions | Fail-fast: se dados inválidos entrarem, o pipeline para antes de contaminar análises |
