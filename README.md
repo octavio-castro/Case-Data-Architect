@@ -3,6 +3,11 @@ NYC Taxi Trip Data — Data Engineering Case — Ingestion, transformation and a
 Solução de engenharia de dados para ingestão, transformação e análise de dados de corridas de táxi de Nova York (jan-mai 2023), utilizando arquitetura medalhão (Bronze/Silver/Gold) com PySpark e Delta Lake no Databricks.
 
 ---
+## Ambiente de Desenvolvimento
+
+A solução foi desenvolvida no Databricks Free Edition. O código fonte está disponível nos arquivos `.py` deste repositório, organizado nas pastas `src/` e `analysis/`.
+
+---
 
 ## Arquitetura
 
