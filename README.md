@@ -32,7 +32,7 @@ A solução segue o padrão de arquitetura medalhão, organizando os dados em ca
 ## Estrutura do Repositório
 
 **src/**
-- `00_setup.py` — Criacao de catalogos, schemas e volumes
+- `00_setup_and_ingestion.py` — Criacao de catalogos, schemas e volumes
 - `01_ingestion_bronze.py` — Leitura dos Parquet -> Bronze
 - `02_transformation_silver.py` — Bronze -> Silver (limpeza + assertions)
 - `03_consumption_gold.py` — Silver -> Gold (uniao + particionamento)
@@ -94,7 +94,7 @@ ALL CHECKS PASSED for silver.yellow
 
 ## Como Executar
 
-1. Criar os catálogos, schemas e volumes (executar `00_setup.py`)
+1. Criar os catálogos, schemas e volumes (executar `00_setup_and_ingestion.py`)
 2. Subir os arquivos Parquet para os volumes em `/Volumes/taxi_case/landing/{tipo}/`
 3. Executar a ingestão (`01_ingestion_bronze.py`) — cria as tabelas Bronze
 4. Executar a transformação (`02_transformation_silver.py`) — limpa, valida e cria as tabelas Silver
