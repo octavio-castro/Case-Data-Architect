@@ -100,12 +100,49 @@ ALL CHECKS PASSED for silver.yellow
 
 ## Como Executar
 
-1. Criar os catálogos, schemas e volumes (executar `00_setup_and_ingestion.py`)
-2. Subir os arquivos Parquet para os volumes em `/Volumes/taxi_case/landing/{tipo}/`
-3. Executar a ingestão (`01_ingestion_bronze.py`) — cria as tabelas Bronze
-4. Executar a transformação (`02_transformation_silver.py`) — limpa, valida e cria as tabelas Silver
-5. Executar o consumo (`03_consumption_gold_governance.py`) — unifica e cria a tabela Gold
-6. Executar as análises (`analysis/01_avg_total_by_month.py` e `02_avg_passengers_by_hour.py`)
+### 1. Setup do ambiente (00_setup_and_ingestion.py)
+
+Cria a estrutura no Databricks Free Edition via Unity Catalog:
+
+- Catálogo: `CREATE CATALOG IF NOT EXISTS taxi_case`
+- Schemas: `taxi_case.landing`, `taxi_case.bronze`, `taxi_case.silver`, `taxi_case.gold`
+- Volumes: `taxi_case.landing.yellow`, `.green`, `.fhv`, `.fhvhv`
+- Imports das funções PySpark utilizadas na pipeline
+
+### 2. Subir os arquivos Parquet
+
+Baixar os 20 arquivos Parquet do site da NYC TLC (https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page), cobrindo janeiro a maio de 2023 para: Yellow, Green, FHV e FHVHV.
+
+No Databricks, ir em Catalog → taxi_case.landing → cada volume → Upload e subir os 5 arquivos Parquet correspondentes a cada tipo.
+
+### 3. Ingestão — Bronze (01_ingestion_bronze.py)
+
+Lê os arquivos Parquet de cada volume com `spark.read.parquet()`, mês a mês (devido a diferenças de schema entre arquivos), une com `unionByName(allowMissingColumns=True)` e salva como tabelas Delta:
+
+- `taxi_case.bronze.yellow` (~16M registros)
+- `taxi_case.bronze.green` (~338K registros)
+- `taxi_case.bronze.fhv` (~6M registros)
+- `taxi_case.bronze.fhvhv` (~95M registros)
+
+### 4. Transformação — Silver (02_transformation_silver.py)
+
+Lê as tabelas Bronze de yellow e green, padroniza nomes de colunas (green usa `lpep_` → renomeado para `tpep_`), aplica os filtros de Data Quality, executa assertions de validação e salva como tabelas Delta:
+
+- `taxi_case.silver.yellow` (~15.2M registros após limpeza)
+- `taxi_case.silver.green` (~308K registros após limpeza)
+
+### 5. Consumo — Gold (03_consumption_gold_governance.py)
+
+Lê as tabelas Silver, unifica yellow e green com `unionByName`, adiciona colunas calculadas (`pickup_month`, `pickup_hour`), particiona por mês e salva como tabela Delta:
+
+- `taxi_case.gold.taxi_trips` (~15.5M registros, particionada por `pickup_month`)
+
+Adicionalmente, adiciona comentários nas colunas via `ALTER TABLE ... ALTER COLUMN COMMENT` para governança de dados.
+
+### 6. Análises (analysis/)
+
+- `01_avg_total_by_month.py`: filtra yellow, agrupa por `pickup_month`, calcula `avg(total_amount)`
+- `02_avg_passengers_by_hour.py`: filtra maio (`pickup_month = 5`), agrupa por `pickup_hour`, calcula `avg(passenger_count)`
 
 ---
 
