@@ -35,7 +35,7 @@ A solução segue o padrão de arquitetura medalhão, organizando os dados em ca
 - `00_setup_and_ingestion.py` — Criacao de catalogos, schemas e volumes
 - `01_ingestion_bronze.py` — Leitura dos Parquet -> Bronze
 - `02_transformation_silver.py` — Bronze -> Silver (limpeza + assertions)
-- `03_consumption_gold.py` — Silver -> Gold (uniao + particionamento)
+- `03_consumption_gold_governance.py` — Silver -> Gold (uniao + particionamento)
 
 **analysis/**
 - `01_avg_total_by_month.py` — Analise 1: media de total_amount por mes
@@ -98,7 +98,7 @@ ALL CHECKS PASSED for silver.yellow
 2. Subir os arquivos Parquet para os volumes em `/Volumes/taxi_case/landing/{tipo}/`
 3. Executar a ingestão (`01_ingestion_bronze.py`) — cria as tabelas Bronze
 4. Executar a transformação (`02_transformation_silver.py`) — limpa, valida e cria as tabelas Silver
-5. Executar o consumo (`03_consumption_gold.py`) — unifica e cria a tabela Gold
+5. Executar o consumo (`03_consumption_gold_governance.py`) — unifica e cria a tabela Gold
 6. Executar as análises (`analysis/01_avg_total_by_month.py` e `02_avg_passengers_by_hour.py`)
 
 ---
